@@ -6,8 +6,8 @@ class NoteView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: SafeArea(child: Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+    return const Scaffold(body: SafeArea(child: Padding(
+      padding:  EdgeInsets.symmetric(horizontal: 10.0),
       child: NoteViewBody(),
     )),);
   }

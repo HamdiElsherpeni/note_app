@@ -14,7 +14,7 @@ class CustomSearchIcon extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           color: Colors.white.withValues(alpha: 0.1),
         ),
-        child: Center(child: Icon(Icons.search)),
+        child:const Center(child: Icon(Icons.search)),
       ),
     );
   }
