@@ -15,11 +15,11 @@ class NoteView extends StatelessWidget {
           showModalBottomSheet(
             context: context,
             builder: (context) {
-              return AddNote();
+              return AddNoteBody();
             },
           );
         },
-        child: const Icon(Icons.add,color: Colors.black,),
+        child: const Icon(Icons.add, color: Colors.black),
       ),
       body: const SafeArea(
         child: Padding(
