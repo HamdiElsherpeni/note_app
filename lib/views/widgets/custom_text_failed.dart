@@ -14,7 +14,7 @@ class CustomTextFailed extends StatelessWidget {
       decoration: InputDecoration(
         hintText: hint,
         hintStyle: const TextStyle(color: kPrimaryColor),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
         enabledBorder: buildBorder(),
         focusedBorder: buildBorder(kPrimaryColor),
       ),
@@ -23,6 +23,7 @@ class CustomTextFailed extends StatelessWidget {
 
   OutlineInputBorder buildBorder([mycolor]) {
     return OutlineInputBorder(
+      borderRadius: BorderRadius.circular(8),
       borderSide: BorderSide(color: mycolor ?? Colors.white),
     );
   }
