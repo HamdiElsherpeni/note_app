@@ -1,68 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:note_app/views/widgets/custom_button.dart';
-import 'package:note_app/views/widgets/custom_text_failed.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_progress_hud/flutter_progress_hud.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:note_app/cubits/add_notes_cubits/add_notes_cubit.dart';
+import 'package:note_app/views/widgets/add_note_form.dart';
 
 class AddNoteBody extends StatelessWidget {
   const AddNoteBody({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
+    return Padding(
       padding: EdgeInsets.only(top: 30.0, right: 10, left: 10),
-      child: SingleChildScrollView(child: AddNoteForm()),
-    );
-  }
-}
-
-class AddNoteForm extends StatefulWidget {
-  const AddNoteForm({super.key});
-
-  @override
-  State<AddNoteForm> createState() => _AddNoteFormState();
-}
-
-class _AddNoteFormState extends State<AddNoteForm> {
-  final GlobalKey<FormState> formKey = GlobalKey();
-  AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
-  String? titel, subTitel;
-  @override
-  Widget build(BuildContext context) {
-    return Form(
-      key: formKey,
-      autovalidateMode: autovalidateMode,
-      child: Column(
-        children: [
-          const SizedBox(height: 5),
-          CustomTextFailed(
-            hint: 'Titel',
-            onSaved: (value) {
-              titel = value;
-            },
-          ),
-          const SizedBox(height: 15),
-          CustomTextFailed(
-            maxLines: 8,
-            hint: 'Contant',
-            onSaved: (value) {
-              subTitel = value;
-            },
-          ),
-          const SizedBox(height: 15),
-          CustomButton(onTap: () {
-            if(formKey.currentState!.validate())
-            {
-              formKey.currentState!.save();
+      child: SingleChildScrollView(
+        child: BlocConsumer<AddNotesCubit, AddNotesState>(
+          listener: (context, state) {
+            if (state is AddNotesFailler) {
+              print('Failled ${state.errorMassge}');
+            } else if (state is AddNotesSucess) {
+              Navigator.pop(context);
             }
-            else
-            {
-              autovalidateMode=AutovalidateMode.always;
-              setState(() {
-                
-              });
-            }
-          },),
-          const SizedBox(height: 50),
-        ],
+          },
+          builder: (context, state) {
+            return ModalProgressHUD(
+              inAsyncCall: state is AddNotesLoading ? true : false,
+              child:const AddNoteForm(),
+            );
+          },
+        ),
       ),
     );
   }
