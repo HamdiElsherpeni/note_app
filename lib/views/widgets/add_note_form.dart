@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:note_app/cubits/add_notes_cubits/add_notes_cubit.dart';
+import 'package:note_app/models/note_model.dart';
 import 'package:note_app/views/widgets/custom_button.dart';
 import 'package:note_app/views/widgets/custom_text_failed.dart';
 
@@ -36,19 +39,23 @@ class _AddNoteFormState extends State<AddNoteForm> {
             },
           ),
           const SizedBox(height: 15),
-          CustomButton(onTap: () {
-            if(formKey.currentState!.validate())
-            {
-              formKey.currentState!.save();
-            }
-            else
-            {
-              autovalidateMode=AutovalidateMode.always;
-              setState(() {
-                
-              });
-            }
-          },),
+          CustomButton(
+            onTap: () {
+              if (formKey.currentState!.validate()) {
+                formKey.currentState!.save();
+                var noteModel = NoteModel(
+                  titel: titel!,
+                  subTitel: subTitel!,
+                  date: DateTime.now().toString(),
+                  color: Colors.yellow.value,
+                );
+                BlocProvider.of<AddNotesCubit>(context).addNotes(noteModel);
+              } else {
+                autovalidateMode = AutovalidateMode.always;
+                setState(() {});
+              }
+            },
+          ),
           const SizedBox(height: 50),
         ],
       ),
