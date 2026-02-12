@@ -16,6 +16,7 @@ class _AddNoteFormState extends State<AddNoteForm> {
   final GlobalKey<FormState> formKey = GlobalKey();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
   String? titel, subTitel;
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -39,21 +40,26 @@ class _AddNoteFormState extends State<AddNoteForm> {
             },
           ),
           const SizedBox(height: 15),
-          CustomButton(
-            onTap: () {
-              if (formKey.currentState!.validate()) {
-                formKey.currentState!.save();
-                var noteModel = NoteModel(
-                  titel: titel!,
-                  subTitel: subTitel!,
-                  date: DateTime.now().toString(),
-                  color: Colors.yellow.value,
-                );
-                BlocProvider.of<AddNotesCubit>(context).addNotes(noteModel);
-              } else {
-                autovalidateMode = AutovalidateMode.always;
-                setState(() {});
-              }
+          BlocBuilder<AddNotesCubit, AddNotesState>(
+            builder: (context, state) {
+              return CustomButton(
+                isLoading: state is AddNotesLoading ? true : false,
+                onTap: () {
+                  if (formKey.currentState!.validate()) {
+                    formKey.currentState!.save();
+                    var noteModel = NoteModel(
+                      titel: titel!,
+                      subTitel: subTitel!,
+                      date: DateTime.now().toString(),
+                      color: Colors.yellow.value,
+                    );
+                    BlocProvider.of<AddNotesCubit>(context).addNotes(noteModel);
+                  } else {
+                    autovalidateMode = AutovalidateMode.always;
+                    setState(() {});
+                  }
+                },
+              );
             },
           ),
           const SizedBox(height: 50),
