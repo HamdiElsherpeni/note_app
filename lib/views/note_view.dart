@@ -13,6 +13,7 @@ class NoteView extends StatelessWidget {
         backgroundColor: kPrimaryColor,
         onPressed: () {
           showModalBottomSheet(
+            isScrollControlled: true,
             context: context,
             builder: (context) {
               return AddNoteBody();

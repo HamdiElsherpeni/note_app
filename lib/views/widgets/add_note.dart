@@ -13,7 +13,12 @@ class AddNoteBody extends StatelessWidget {
     return BlocProvider(
       create: (context) => AddNotesCubit(),
       child: Padding(
-        padding: const EdgeInsets.only(top: 30.0, right: 10, left: 10),
+        padding: EdgeInsets.only(
+          top: 30.0,
+          right: 10,
+          left: 10,
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
         child: BlocConsumer<AddNotesCubit, AddNotesState>(
           listener: (context, state) {
             if (state is AddNotesFailler) {
