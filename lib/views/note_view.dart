@@ -24,13 +24,10 @@ class NoteView extends StatelessWidget {
         },
         child: const Icon(Icons.add, color: Colors.black),
       ),
-      body:  SafeArea(
+      body:const  SafeArea(
         child: Padding(
-          padding:const EdgeInsets.symmetric(horizontal: 10.0),
-          child: BlocProvider(
-            create: (context) => ReadNotesCubit()..featchAllNote(),
-            child:const NoteViewBody(),
-          ),
+          padding: EdgeInsets.symmetric(horizontal: 10.0),
+          child:  NoteViewBody(),
         ),
       ),
     );

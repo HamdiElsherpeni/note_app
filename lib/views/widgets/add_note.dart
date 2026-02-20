@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:note_app/cubits/add_notes_cubits/add_notes_cubit.dart';
+import 'package:note_app/cubits/notes_cubit/read_notes_cubit.dart';
 import 'package:note_app/views/widgets/add_note_form.dart';
 
 class AddNoteBody extends StatelessWidget {
@@ -24,6 +25,7 @@ class AddNoteBody extends StatelessWidget {
             if (state is AddNotesFailler) {
               print('Failled ${state.errorMassge}');
             } else if (state is AddNotesSucess) {
+              BlocProvider.of<ReadNotesCubit>(context).featchAllNote();
               Navigator.pop(context);
             }
           },

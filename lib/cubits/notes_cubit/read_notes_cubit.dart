@@ -8,14 +8,15 @@ part 'read_notes_state.dart';
 
 class ReadNotesCubit extends Cubit<ReadNotesState> {
   ReadNotesCubit() : super(ReadNotesInitial());
-  List<NoteModel> notes = [];
+  List<NoteModel> notes=[] ;
   void featchAllNote() {
-    try {
-      final notesBox = Hive.box<NoteModel>(kNotesBox);
-      notes = notesBox.values.toList();
-      emit(ReadNotesSuccess(notes));
-    } catch (e) {
-      emit(ReadNotesFailuer(e.toString()));
-    }
+    final notesBox = Hive.box<NoteModel>(kNotesBox);
+    notes = notesBox.values.toList();
+    emit(ReadNotesSuccess());
+  }
+  deleteNote(NoteModel note) {
+    note.delete();
+    featchAllNote(); 
+     emit(ReadNotesSuccess());// يعيد تحميل البيانات
   }
 }

@@ -9,15 +9,17 @@ class NoteListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List <NoteModel>notes=BlocProvider.of<ReadNotesCubit>(context).notes;
+    final List<NoteModel> notes = BlocProvider.of<ReadNotesCubit>(
+      context,
+    ).notes;
     return BlocBuilder<ReadNotesCubit, ReadNotesState>(
       builder: (context, state) {
-       return ListView.builder(
-            itemCount: notes.length,
-            itemBuilder: (context, index) {
-              return NoteItem(note: notes[index],);
-            },
-          );
+        return ListView.builder(
+          itemCount: notes.length,
+          itemBuilder: (context, index) {
+            return NoteItem(note: notes[index]);
+          },
+        );
       },
     );
   }
