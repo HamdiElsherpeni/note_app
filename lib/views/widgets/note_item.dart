@@ -18,7 +18,7 @@ class NoteItem extends StatelessWidget {
         },
         child: Container(
           decoration: BoxDecoration(
-            color: Colors.yellowAccent,
+            color: Color(note.color),
             borderRadius: BorderRadius.circular(12),
           ),
           child: Padding(
@@ -41,7 +41,9 @@ class NoteItem extends StatelessWidget {
                     ),
                   ),
                   trailing: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      note.delete();
+                    },
                     icon: const Icon(
                       Icons.delete,
                       color: Colors.black,
@@ -52,7 +54,7 @@ class NoteItem extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(right: 24),
                   child: Text(
-                    'May21,2026',
+                    note.date,
                     style: TextStyle(
                       color: Colors.black.withValues(alpha: 0.5),
                     ),
