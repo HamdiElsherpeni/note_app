@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:note_app/constants.dart';
 import 'package:note_app/cubits/notes_cubit/read_notes_cubit.dart';
 import 'package:note_app/models/note_model.dart';
+import 'package:note_app/views/widgets/color_list_view.dart';
 import 'package:note_app/views/widgets/custom_app_bar.dart';
 import 'package:note_app/views/widgets/custom_text_failed.dart';
+import 'package:note_app/views/widgets/edit_note_color_list.dart';
 
 class EditNoteViewBody extends StatefulWidget {
   const EditNoteViewBody({super.key, required this.note});
@@ -28,6 +31,13 @@ class _EditNoteViewBodyState extends State<EditNoteViewBody> {
               widget.note.subTitel = contant ?? widget.note.subTitel;
               widget.note.save();
               BlocProvider.of<ReadNotesCubit>(context).featchAllNote();
+              ScaffoldMessenger.of(context).showSnackBar(
+             const   SnackBar(
+                  content: Center(child: Text('تم التعديل')),
+                  backgroundColor: Colors.green,
+                  duration: Duration(seconds: 2),
+                ),
+              );
               Navigator.pop(context);
             },
           ),
@@ -47,6 +57,7 @@ class _EditNoteViewBodyState extends State<EditNoteViewBody> {
             },
           ),
           const SizedBox(height: 15),
+          EditNoteColorList(note: widget.note),
         ],
       ),
     );
