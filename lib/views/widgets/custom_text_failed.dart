@@ -6,14 +6,16 @@ class CustomTextFailed extends StatelessWidget {
     super.key,
     this.maxLines,
     required this.hint,
-    this.onSaved,
+    this.onSaved, this.onChanged,
   });
   final int? maxLines;
   final String hint;
   final void Function(String?)? onSaved;
+ final void Function(String)? onChanged;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onChanged:onChanged ,
       cursorColor: kPrimaryColor,
       maxLines: maxLines,
       onSaved: onSaved,

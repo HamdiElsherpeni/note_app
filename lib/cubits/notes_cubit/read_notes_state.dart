@@ -8,5 +8,9 @@ final class ReadNotesInitial extends ReadNotesState {}
 final class ReadNotesLoading extends ReadNotesState {}
 
 final class ReadNotesSuccess extends ReadNotesState {
-  ReadNotesSuccess();
+  ReadNotesSuccess(this.notes);
+
+  final List<NoteModel> notes;
 }
+
+

@@ -9,17 +9,18 @@ class NoteListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<NoteModel> notes = BlocProvider.of<ReadNotesCubit>(
-      context,
-    ).notes;
     return BlocBuilder<ReadNotesCubit, ReadNotesState>(
       builder: (context, state) {
-        return ListView.builder(
-          itemCount: notes.length,
-          itemBuilder: (context, index) {
-            return NoteItem(note: notes[index]);
-          },
-        );
+        if (state is ReadNotesSuccess) {
+          return ListView.builder(
+            itemCount: state.notes.length,
+            itemBuilder: (context, index) {
+              return NoteItem(note: state.notes[index]);
+            },
+          );
+        } else {
+          return const CircularProgressIndicator();
+        }
       },
     );
   }
